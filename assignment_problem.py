@@ -35,4 +35,40 @@ def main():
                        [1, 0, 0], [0, 0, 0]],
                       [[0, 0, 0], [0, 1, 1], [1, 1, 0], [0, 0, 0], [1, 0, 0],
                        [0, 1, 0], [0, 0, 0]]]
+     # Creates the model.
+    model = cp_model.CpModel()
+
+    # Creates shift variables.
+    # shifts[(n, d, s)]: employee 'n' works shift 's' on day 'd'.
+    shifts = {}
+    for n in all_employees:
+        for d in all_days:
+            for s in all_shifts:
+                shifts[(n, d, s)] = model.NewBoolVar(f'shifts[({n},{d},{s})]')
+
+    # This constraint ensures that each shift has a required number of employees
+    # x[s] variable indicates how many employees work in shift s
+    x = {}
+    for s in all_shifts:
+        x[s] = model.NewIntVar(1, 15, f'x[{s}]')
+
+    for s in all_shifts:
+        model.Add(x[s] == employees_per_shift[s])
+
+    for s in all_shifts:
+        for d in all_days:
+            for n in all_employees:
+                model.Add(x[s] == sum(shifts[(n, d, s)] for n in all_employees))
+
+    # This constraint ensures that each employee works at max requested number of shifts on a particular day
+    # y[(n,d)] indicates how many non-consecutive shifts employee n wants to work on day d
+    y = {}
+    for n in all_employees:
+        for d in all_days:
+            y[(n, d)] = model.NewIntVar(1, shifts_per_employee[n][d], f'y[{n}]')
+
+    for n in all_employees:
+        for d in all_days:
+            for s in all_shifts:
+                model.Add(y[(n, d)] >= sum(shifts[(n, d, s)] for s in all_shifts))
 
