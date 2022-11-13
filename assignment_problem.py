@@ -71,4 +71,12 @@ def main():
         for d in all_days:
             for s in all_shifts:
                 model.Add(y[(n, d)] >= sum(shifts[(n, d, s)] for s in all_shifts))
+   
+    # This constraint ensures that no employee works non-consecutive shifts.
+    allowed_assignments = [[0, 0, 0], [1, 0, 0], [0, 1, 0], [0, 0, 1], [1, 1, 0], [0, 1, 1]]
+    for n in all_employees:
+        for d in all_days:
+            model.AddAllowedAssignments(
+                [shifts[(n, d, s)] for s in all_shifts], allowed_assignments)
+                
 
