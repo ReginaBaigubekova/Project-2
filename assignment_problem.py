@@ -97,5 +97,33 @@ def main():
                 num_shifts_worked += shifts[(n, d, s)]
         model.Add(min_shifts_per_employee <= num_shifts_worked)
         model.Add(num_shifts_worked <= max_shifts_per_employee)
+     
+    
+    # Create the objective function
+    model.Maximize(
+        sum(shift_requests[n][d][s] * shifts[(n, d, s)] * priorities[n] for n in all_employees
+            for d in all_days for s in all_shifts))
+
+    # Creates the solver and solve.
+    solver = cp_model.CpSolver()
+    status = solver.Solve(model)
+
+    if status == cp_model.OPTIMAL:
+        print('Solution:')
+        for d in all_days:
+            print(days[d])
+            for n in all_employees:
+                for s in all_shifts:
+                    if solver.Value(shifts[(n, d, s)]) == 1:
+                        if shift_requests[n][d][s] == 1:
+                            print('Employee', n, 'works shift', s, '(requested).')
+                        else:
+                            print('Employee', n, 'works shift', s,
+                                  '(not requested).')
+    else:
+        print('No optimal solution found !')
+
+if __name__ == '__main__':
+    main()
 
     
