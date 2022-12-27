@@ -20,9 +20,8 @@ def main():
     all_days = range(num_days)
     employees_per_shift = [1, 2, 1]  # employees_per_shift[i] indicates number of employees required for shift i
     num_shifts = sum(employees_per_shift)
-    # shifts_per_employee [i][j] indicates how many shifts employee i wants to work on day j
-    shifts_per_employee = [[2, 2, 1, 1, 1, 1, 1], [2, 2, 2, 1, 1, 1, 1],[1, 1, 1, 1, 1, 1, 1],
-                           [2, 1, 1, 1, 1, 1, 1], [1, 2, 2, 1, 1, 1, 1]]
+  
+  
     priorities = [100, 100, 10, 9, 10]  # priorities[i] indicates rank of employee i
     # shift_requests[i][j][k] indicates whether employee i wants to work shift k on day j
     shift_requests = [[[0, 1, 1], [0, 1, 1], [0, 0, 0], [0, 0, 0], [0, 0, 1],
@@ -59,18 +58,6 @@ def main():
         for d in all_days:
             for n in all_employees:
                 model.Add(x[s] == sum(shifts[(n, d, s)] for n in all_employees))
-
-    # This constraint ensures that each employee works at max requested number of shifts on a particular day
-    # y[(n,d)] indicates how many non-consecutive shifts employee n wants to work on day d
-    y = {}
-    for n in all_employees:
-        for d in all_days:
-            y[(n, d)] = model.NewIntVar(1, shifts_per_employee[n][d], f'y[{n}]')
-
-    for n in all_employees:
-        for d in all_days:
-            for s in all_shifts:
-                model.Add(y[(n, d)] >= sum(shifts[(n, d, s)] for s in all_shifts))
    
     # This constraint ensures that no employee works non-consecutive shifts.
     allowed_assignments = [[0, 0, 0], [1, 0, 0], [0, 1, 0], [0, 0, 1], [1, 1, 0], [0, 1, 1]]
