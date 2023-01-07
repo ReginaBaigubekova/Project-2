@@ -65,26 +65,6 @@ def main():
         for d in all_days:
             model.AddAllowedAssignments(
                 [shifts[(n, d, s)] for s in all_shifts], allowed_assignments)
-                
-
- # Try to distribute the shifts evenly, so that each employee works
-    # min_shifts_per_nurse shifts. If this is not possible, because the total
-    # number of shifts is not divisible by the number of employees, some employees will
-    # be assigned one more shift.
-
-    min_shifts_per_employee = (num_shifts * num_days) // num_employess
-    if num_shifts * num_days % num_employess == 0:
-        max_shifts_per_employee = min_shifts_per_employee
-    else:
-        max_shifts_per_employee = min_shifts_per_employee + 1
-    for n in all_employees:
-        num_shifts_worked = 0
-        for d in all_days:
-            for s in all_shifts:
-                num_shifts_worked += shifts[(n, d, s)]
-        model.Add(min_shifts_per_employee <= num_shifts_worked)
-        model.Add(num_shifts_worked <= max_shifts_per_employee)
-     
     
     # Create the objective function
     model.Maximize(
