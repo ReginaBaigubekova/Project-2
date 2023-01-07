@@ -111,9 +111,11 @@ def main():
                     else:
                         if shift_requests[n][d][s] == 1:
                             result_dict[n + 1, d + 1, s + 1] = '-+'
+                            count_not_requested += 1
 
                         else:
                             result_dict[n + 1, d + 1, s + 1] = '--'
+                            count_requested += 1
     columns_dates = []
     for d in all_days:
         for s in all_shifts:
