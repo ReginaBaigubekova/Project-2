@@ -125,6 +125,7 @@ def main():
         indexes_employees.append(f'Employee {n + 1}')
 
     df = pd.DataFrame(index=indexes_employees, columns=columns_dates)
+    percentage=round(count_requested/(count_requested+count_not_requested),1)*100
 
     for n in all_employees:
         nl = []
@@ -133,7 +134,7 @@ def main():
                 nl.append(result_dict[k])
         df.loc[f'Employee {n + 1}'] = nl
 
-    print(f'Requests satisfied: {round(count_requested/(count_requested+count_not_requested),1)*100}'+'%')
+    print(f'Requests satisfied: {percentage}'+'%')
     print(df.to_string())
 
 if __name__ == '__main__':
