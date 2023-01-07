@@ -100,9 +100,7 @@ def main():
     count_not_requested = 0
 
     if status == cp_model.OPTIMAL:
-        print('Solution:')
         for d in all_days:
-            print(days[d])
             for n in all_employees:
                 for s in all_shifts:
                     if solver.Value(shifts[(n, d, s)]) == 1:
