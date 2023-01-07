@@ -95,6 +95,10 @@ def main():
     solver = cp_model.CpSolver()
     status = solver.Solve(model)
 
+    result_dict = {}
+    count_requested = 0
+    count_not_requested = 0
+
     if status == cp_model.OPTIMAL:
         print('Solution:')
         for d in all_days:
@@ -103,12 +107,36 @@ def main():
                 for s in all_shifts:
                     if solver.Value(shifts[(n, d, s)]) == 1:
                         if shift_requests[n][d][s] == 1:
-                            print('Employee', n, 'works shift', s, '(requested).')
+                            result_dict[n + 1, d + 1, s + 1] = '++'
+                            count_requested += 1
                         else:
-                            print('Employee', n, 'works shift', s,
-                                  '(not requested).')
-    else:
-        print('No optimal solution found !')
+                            result_dict[n + 1, d + 1, s + 1] = '+-'
+                            count_not_requested += 1
+                    else:
+                        if shift_requests[n][d][s] == 1:
+                            result_dict[n + 1, d + 1, s + 1] = '-+'
+
+                        else:
+                            result_dict[n + 1, d + 1, s + 1] = '--'
+    columns_dates = []
+    for d in all_days:
+        for s in all_shifts:
+            columns_dates.append(f'Day{d+1} Shift{s + 1}')
+    indexes_employees = []
+    for n in all_employees:
+        indexes_employees.append(f'Employee {n + 1}')
+
+    df = pd.DataFrame(index=indexes_employees, columns=columns_dates)
+
+    for n in all_employees:
+        nl = []
+        for k in list(result_dict.keys()):
+            if list(k)[0] == n+1:
+                nl.append(result_dict[k])
+        df.loc[f'Employee {n + 1}'] = nl
+
+    print(f'Requests satisfied: {round(count_requested/(count_requested+count_not_requested),1)*100}'+'%')
+    print(df.to_string())
 
 if __name__ == '__main__':
     main()
