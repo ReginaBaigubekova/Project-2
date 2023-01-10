@@ -287,19 +287,19 @@ class Ui_MainWindow(object):
                                      "color: rgb(255, 255, 255);")
         self.spinBox_3.setObjectName("spinBox_3")
         self.gridLayout.addWidget(self.spinBox_3, 2, 1, 1, 1)
-        self.bth_save_1 = QtWidgets.QPushButton(self.page_1)
-        self.bth_save_1.setGeometry(QtCore.QRect(310, 100, 41, 20))
+        self.btn_save_1 = QtWidgets.QPushButton(self.page_1)
+        self.btn_save_1.setGeometry(QtCore.QRect(310, 100, 41, 20))
         font = QtGui.QFont()
         font.setFamily("Segoe UI")
-        self.bth_save_1.setFont(font)
-        self.bth_save_1.setStyleSheet("QPushButton {    \n"
+        self.btn_save_1.setFont(font)
+        self.btn_save_1.setStyleSheet("QPushButton {    \n"
                                       "    color: rgb(255, 255, 255);\n"
                                       "    background-color: rgb(35, 35, 35);\n"
                                       "}\n"
                                       "QPushButton:pressed {\n"
                                       "    background-color: rgb(148, 117, 169);\n"
                                       "}")
-        self.bth_save_1.setObjectName("bth_save_1")
+        self.btn_save_1.setObjectName("bth_save_1")
         self.line = QtWidgets.QFrame(self.page_1)
         self.line.setGeometry(QtCore.QRect(10, 130, 371, 20))
         self.line.setFrameShape(QtWidgets.QFrame.Shape.HLine)
@@ -373,25 +373,61 @@ class Ui_MainWindow(object):
 
         self.verticalLayout_7.addWidget(self.tableWidget)
         self.stackedWidget.addWidget(self.page_1)
+
         self.page_2 = QtWidgets.QWidget()
         self.page_2.setObjectName("page_2")
-        self.scrollArea_3 = QtWidgets.QScrollArea(self.page_2)
-        self.scrollArea_3.setGeometry(QtCore.QRect(10, 10, 271, 321))
-        self.scrollArea_3.setWidgetResizable(True)
-        self.scrollArea_3.setObjectName("scrollArea_3")
-        self.scrollAreaWidgetContents_3 = QtWidgets.QWidget()
-        self.scrollAreaWidgetContents_3.setGeometry(QtCore.QRect(0, 0, 269, 319))
-        self.scrollAreaWidgetContents_3.setObjectName("scrollAreaWidgetContents_3")
-        self.verticalScrollBar_2 = QtWidgets.QScrollBar(self.scrollAreaWidgetContents_3)
-        self.verticalScrollBar_2.setGeometry(QtCore.QRect(250, 0, 16, 311))
-        self.verticalScrollBar_2.setOrientation(QtCore.Qt.Orientation.Vertical)
-        self.verticalScrollBar_2.setObjectName("verticalScrollBar_2")
-        self.scrollArea_3.setWidget(self.scrollAreaWidgetContents_3)
+        self.tableWidget_2 = QtWidgets.QTableWidget(self.page_2)
+        self.tableWidget_2.setGeometry(QtCore.QRect(0, 10, 380, 301))
+        self.tableWidget_2.setObjectName("tableWidget_2")
+        self.tableWidget_2.setColumnCount(0)
+        self.tableWidget_2.setRowCount(0)
+        self.btn_save_3 = QtWidgets.QPushButton(self.page_2)
+        self.btn_save_3.setGeometry(QtCore.QRect(240, 320, 73, 20))
+        font = QtGui.QFont()
+        font.setFamily("Segoe UI")
+        self.btn_save_3.setFont(font)
+        self.btn_save_3.setStyleSheet("QPushButton {    \n"
+                                      "    color: rgb(255, 255, 255);\n"
+                                      "    background-color: rgb(35, 35, 35);\n"
+                                      "}\n"
+                                      "QPushButton:pressed {\n"
+                                      "    background-color: rgb(148, 117, 169);\n"
+                                      "}")
+        self.btn_save_3.setObjectName("btn_save_3")
+        self.btn_save_4 = QtWidgets.QPushButton(self.page_2)
+        self.btn_save_4.setGeometry(QtCore.QRect(320, 320, 41, 20))
+        font = QtGui.QFont()
+        font.setFamily("Segoe UI")
+        self.btn_save_4.setFont(font)
+        self.btn_save_4.setStyleSheet("QPushButton {    \n"
+                                      "    color: rgb(255, 255, 255);\n"
+                                      "    background-color: rgb(35, 35, 35);\n"
+                                      "}\n"
+                                      "QPushButton:pressed {\n"
+                                      "    background-color: rgb(148, 117, 169);\n"
+                                      "}")
+        self.btn_save_4.setObjectName("btn_save_4")
         self.stackedWidget.addWidget(self.page_2)
+
         self.page_3 = QtWidgets.QWidget()
         self.page_3.setObjectName("page_3")
-        self.verticalLayout_8 = QtWidgets.QVBoxLayout(self.page_3)
-        self.verticalLayout_8.setObjectName("verticalLayout_8")
+        self.tableWidget_3 = QtWidgets.QTableWidget(self.page_3)
+        self.tableWidget_3.setGeometry(QtCore.QRect(0, 10, 380, 301))
+        self.tableWidget_3.setObjectName("tableWidget_3")
+
+        self.btn_save_5 = QtWidgets.QPushButton(self.page_3)
+        self.btn_save_5.setGeometry(QtCore.QRect(320, 320, 50, 20))
+        font = QtGui.QFont()
+        font.setFamily("Segoe UI")
+        self.btn_save_5.setFont(font)
+        self.btn_save_5.setStyleSheet("QPushButton {    \n"
+                                      "    color: rgb(255, 255, 255);\n"
+                                      "    background-color: rgb(35, 35, 35);\n"
+                                      "}\n"
+                                      "QPushButton:pressed {\n"
+                                      "    background-color: rgb(148, 117, 169);\n"
+                                      "}")
+        self.btn_save_5.setObjectName("btn_save_5")
         self.stackedWidget.addWidget(self.page_3)
         self.verticalLayout_5.addWidget(self.stackedWidget)
         self.horizontalLayout_2.addWidget(self.frame_page)
@@ -412,6 +448,9 @@ class Ui_MainWindow(object):
         self.label_1.setText(_translate("MainWindow", "Сотрудников:"))
         self.label_2.setText(_translate("MainWindow", "Смен в день:"))
         self.label_3.setText(_translate("MainWindow", "Рабочих дней:"))
-        self.bth_save_1.setText(_translate("MainWindow", "ДАЛЕЕ"))
+        self.btn_save_1.setText(_translate("MainWindow", "ДАЛЕЕ"))
         self.btn_save_2.setText(_translate("MainWindow", "ДАЛЕЕ"))
         self.label_4.setText(_translate("MainWindow", "№ Cмены  | Cотрудников"))
+        self.btn_save_3.setText(_translate("MainWindow", "СОХРАНИТЬ"))
+        self.btn_save_4.setText(_translate("MainWindow", "ДАЛЕЕ"))
+        self.btn_save_5.setText(_translate("MainWindow", "В ФАЙЛ"))
