@@ -60,7 +60,42 @@ def main():
                 model.Add(x[s] == sum(shifts[(n, d, s)] for n in all_employees))
    
     # This constraint ensures that no employee works non-consecutive shifts.
-    allowed_assignments = [[0, 0, 0], [1, 0, 0], [0, 1, 0], [0, 0, 1], [1, 1, 0], [0, 1, 1]]
+    allowed_assignments = []
+    if num_shifts == 1:
+        allowed_assignments == [[0], [1]]
+    elif num_shifts == 2:
+        if max_num_of_shifts == 1:
+            allowed_assignments = [[0, 0], [0, 1], [1, 0]]
+        else:
+            allowed_assignments = [[0, 0], [0, 1], [1, 0], [1, 1]]
+    elif num_shifts == 3:
+        if max_num_of_shifts == 1:
+            allowed_assignments = [[0, 0, 0], [1, 0, 0], [0, 1, 0], [0, 0, 1]]
+        elif max_num_of_shifts == 2:
+            allowed_assignments = [[0, 0, 0], [1, 0, 0], [0, 1, 0], [0, 0, 1], [1, 1, 0], [0, 1, 1]]
+        else:
+            allowed_assignments = [[0, 0, 0], [1, 0, 0], [0, 1, 0], [0, 0, 1], [1, 1, 0], [0, 1, 1], [1, 1, 1]]
+    elif num_shifts == 4:
+        if max_num_of_shifts == 1:
+            allowed_assignments = [[0, 0, 0, 0], [1, 0, 0, 0], [0, 1, 0, 0], [0, 0, 1, 0], [0, 0, 0, 1]]
+        elif max_num_of_shifts == 2:
+            allowed_assignments = [[0, 0, 0, 0], [1, 0, 0, 0], [0, 1, 0, 0], [0, 0, 1, 0], [0, 0, 0, 1],
+                                   [1, 1, 0, 0], [0, 1, 1, 0], [0, 0, 1, 1]]
+        else:
+            allowed_assignments = [[0, 0, 0, 0], [1, 0, 0, 0], [0, 1, 0, 0], [0, 0, 1, 0], [0, 0, 0, 1],
+                                   [1, 1, 0, 0], [0, 1, 1, 0], [0, 0, 1, 1], [1, 1, 1, 0], [0, 1, 1, 1]]
+     elif num_shifts == 5:
+        if max_num_of_shifts == 1:
+            allowed_assignments = [[0, 0, 0, 0, 0], [1, 0, 0, 0, 0], [0, 1, 0, 0, 0], [0, 0, 1, 0, 0], [0, 0, 0, 1, 0],
+                                   [0, 0, 0, 0, 1]]
+        if max_num_of_shifts == 2:
+            allowed_assignments = [[0, 0, 0, 0, 0], [1, 0, 0, 0, 0], [0, 1, 0, 0, 0], [0, 0, 1, 0, 0], [0, 0, 0, 1, 0],
+                                   [0, 0, 0, 0, 1], [1, 1, 0, 0, 0, 0], [0, 1, 1, 0, 0], [0, 0, 1, 1, 0],
+                                   [0, 0, 0, 1, 1]]
+        else:
+            allowed_assignments = [[0, 0, 0, 0, 0], [1, 0, 0, 0, 0], [0, 1, 0, 0, 0], [0, 0, 1, 0, 0], [0, 0, 0, 1, 0],
+                                   [0, 0, 0, 0, 1], [1, 1, 0, 0, 0, 0], [0, 1, 1, 0, 0], [0, 0, 1, 1, 0],
+                                   [0, 0, 0, 1, 1], [0, 0, 1, 1, 1], [0, 1, 1, 1, 0], [1, 1, 1, 0, 0]]
     for n in all_employees:
         for d in all_days:
             model.AddAllowedAssignments(
