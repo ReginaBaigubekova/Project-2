@@ -287,6 +287,30 @@ class Ui_MainWindow(object):
                                      "color: rgb(255, 255, 255);")
         self.spinBox_3.setObjectName("spinBox_3")
         self.gridLayout.addWidget(self.spinBox_3, 2, 1, 1, 1)
+
+        self.spinBox_4 = QtWidgets.QSpinBox(self.formLayoutWidget)
+        font = QtGui.QFont()
+        font.setFamily("Segoe UI")
+        font.setPointSize(10)
+        font.setBold(False)
+        font.setItalic(False)
+        font.setWeight(50)
+        self.spinBox_4.setFont(font)
+        self.spinBox_4.setMaximum(3)
+        self.spinBox_4.setObjectName("spinBox_4")
+        self.gridLayout.addWidget(self.spinBox_4, 1, 2, 1, 1)
+        self.spinBox_4.setToolTip("max смен в день\n для сотрудника")
+        self.spinBox_4.setStyleSheet("QSpinBox{font: 10pt \"Segoe UI\"; color: rgb(255, 255, 255);}, QToolTip {color: "
+                                     "rgb(0, 0, 0)")
+
+        self.spinBox_2.setToolTip("на сколько смен \n поделен рабочий день")
+        self.spinBox_2.setStyleSheet("QSpinBox{font: 10pt \"Segoe UI\"; color: rgb(255, 255, 255);}, QToolTip {color: "
+                                     "rgb(0, 0, 0)")
+
+
+
+
+
         self.btn_save_1 = QtWidgets.QPushButton(self.page_1)
         self.btn_save_1.setGeometry(QtCore.QRect(310, 100, 41, 20))
         font = QtGui.QFont()
@@ -428,6 +452,20 @@ class Ui_MainWindow(object):
                                       "    background-color: rgb(148, 117, 169);\n"
                                       "}")
         self.btn_save_5.setObjectName("btn_save_5")
+
+        self.label = QtWidgets.QLabel(self.page_3)
+        self.label.setGeometry(QtCore.QRect(70, 320, 160, 19))
+        font = QtGui.QFont()
+        font.setFamily("Segoe UI")
+        font.setPointSize(8)
+        self.label.setFont(font)
+        self.label.setStyleSheet("color: rgb(255, 255, 255);\n"
+                                 "border: 1px solid;\n"
+                                 "border-color: rgb(180, 142, 205);\n"
+                                 "")
+        self.label.setFrameShape(QtWidgets.QFrame.Shape.NoFrame)
+        self.label.setObjectName("label")
+
         self.stackedWidget.addWidget(self.page_3)
         self.verticalLayout_5.addWidget(self.stackedWidget)
         self.horizontalLayout_2.addWidget(self.frame_page)
@@ -440,7 +478,7 @@ class Ui_MainWindow(object):
 
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
-        MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
+        MainWindow.setWindowTitle(_translate("MainWindow", "Расписание"))
         self.Btn_Toggle.setText(_translate("MainWindow", "МЕНЮ"))
         self.btn_page_1.setText(_translate("MainWindow", "КОЛИЧЕСТВО"))
         self.btn_page_2.setText(_translate("MainWindow", "СПИСОК"))
@@ -454,3 +492,4 @@ class Ui_MainWindow(object):
         self.btn_save_3.setText(_translate("MainWindow", "СОХРАНИТЬ"))
         self.btn_save_4.setText(_translate("MainWindow", "ДАЛЕЕ"))
         self.btn_save_5.setText(_translate("MainWindow", "В ФАЙЛ"))
+        #self.label.setText(_translate("MainWindow", "Удовлетворено " + str(percentage) + "% просьб"))
