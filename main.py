@@ -1,17 +1,3 @@
-""" from PyQt6 import uic
-from PyQt6.QtWidgets import QApplication
-
-Form, Window = uic.loadUiType("pages3.ui")
-
-app = QApplication([])
-window = Window()
-form = Form()
-form.setupUi(window)
-window.show()
-app.exec()
-"""
-
-
 import sys
 from PyQt6 import QtCore, QtGui, QtWidgets
 from PyQt6.QtGui import QColor
@@ -27,12 +13,14 @@ global g_employees_per_shift
 global g_names_employees
 global g_priorities
 global g_shift_requests
+global g_max_num_of_shifts
 
 global g_col_names
 global res
 
 
 def adjust_table_1(table):
+    """sets table 1 parameters"""
     table.setRowCount(g_num_shifts)
     table.setColumnCount(1)
     table.horizontalHeader().setVisible(False)
@@ -48,6 +36,7 @@ def adjust_table_1(table):
 
 
 def adjust_table_2(table):
+    """sets table 2 parameters"""
     table.setRowCount(g_num_employees)
     col = g_num_shifts * g_num_days + 2
     table.setColumnCount(col)
@@ -75,6 +64,7 @@ def adjust_table_2(table):
 
 
 def adjust_table_3(table):
+    """sets table 3 parameters"""
     table.setRowCount(g_num_employees)
     table.setColumnCount(g_num_shifts * g_num_days)
 
@@ -105,7 +95,7 @@ class MainWindow(QtWidgets.QMainWindow):
         self.ui.btn_page_2.clicked.connect(lambda: self.ui.stackedWidget.setCurrentWidget(self.ui.page_2))
         self.ui.btn_page_3.clicked.connect(lambda: self.ui.stackedWidget.setCurrentWidget(self.ui.page_3))
 
-        # BTN
+        # BUTTONS
         self.ui.btn_save_1.clicked.connect(self.click_save_1)
         self.ui.btn_save_2.clicked.connect(self.click_save_2)
         self.ui.btn_save_3.clicked.connect(self.click_save_3)
@@ -113,18 +103,22 @@ class MainWindow(QtWidgets.QMainWindow):
         self.ui.btn_save_5.clicked.connect(self.click_save_5)
 
     def click_save_1(self):
+        """get the entered data"""
         global g_num_employees
         global g_num_shifts
         global g_num_days
+        global g_max_num_of_shifts
         g_num_employees = int(self.ui.spinBox_1.text())
         g_num_shifts = int(self.ui.spinBox_2.text())
         g_num_days = int(self.ui.spinBox_3.text())
+        g_max_num_of_shifts = int(self.ui.spinBox_4.text())
         adjust_table_1(self.ui.tableWidget)
         print(g_num_employees)
         print(g_num_shifts)
         print(g_num_days)
 
     def click_save_2(self):
+        """get the entered data"""
         # g_employees_per_shift[i] indicates number of employees required for shift i
         global g_employees_per_shift
         g_employees_per_shift = []
@@ -137,6 +131,7 @@ class MainWindow(QtWidgets.QMainWindow):
         self.ui.stackedWidget.setCurrentWidget(self.ui.page_2)
 
     def click_save_3(self):
+        """get the entered data from table 2"""
         self.ui.tableWidget_2.resizeColumnsToContents()
         # get g_names_employees from table_2
         global g_names_employees
@@ -176,6 +171,7 @@ class MainWindow(QtWidgets.QMainWindow):
         print(g_shift_requests)
 
     def click_save_4(self):
+        """pass data to the main function and convert the result"""
         from main_function import func
 
         global g_num_employees
@@ -188,7 +184,7 @@ class MainWindow(QtWidgets.QMainWindow):
 
         self.ui.stackedWidget.setCurrentWidget(self.ui.page_3)
         global res
-        res = func(g_num_employees, g_num_shifts, g_num_days, g_employees_per_shift, g_priorities, g_shift_requests)
+        res = func(g_num_employees, g_num_shifts, g_num_days, g_employees_per_shift, g_priorities, g_shift_requests, g_max_num_of_shifts)
         print(res)
         print(type(res))
 
@@ -204,12 +200,12 @@ class MainWindow(QtWidgets.QMainWindow):
                 else:
                     self.ui.tableWidget_3.setItem(i-1, j, QTableWidgetItem(str(row[j])))
 
-        #self.ui.tableWidget_3.setVerticalHeaderLabels(g_names_employees)
-
         from main_function import percentage
+        self.ui.label.setText(QtCore.QCoreApplication.translate("MainWindow", "Удовлетворено " + str(percentage) + "% просьб"))
         print(percentage)
 
     def click_save_5(self):
+        """save the result to exel"""
         res.to_excel(r'C:\Users\Regina\Downloads\table.xlsx')
         print("SAVED!!!")
 
